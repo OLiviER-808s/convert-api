@@ -13,6 +13,7 @@ import Button from "primevue/button"
 import Card from "primevue/card"
 import Message from "primevue/message"
 import Checkbox from "primevue/checkbox";
+import {Menubar, Ripple} from "primevue";
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
@@ -30,7 +31,8 @@ createInertiaApp({
             .use(PrimeVue, {
                 theme: {
                     preset: Aura
-                }
+                },
+                ripple: true,
             })
             .component('InputText', InputText)
             .component('Password', Password)
@@ -38,6 +40,8 @@ createInertiaApp({
             .component('Card', Card)
             .component('Message', Message)
             .component('Checkbox', Checkbox)
+            .component('Menubar', Menubar)
+            .directive('ripple', Ripple)
             .mount(el);
     },
     progress: {
