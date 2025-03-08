@@ -1,11 +1,13 @@
 <script setup>
 import {ref} from "vue";
+import {router} from "@inertiajs/vue3";
 
 const menu = ref(null);
 
 const items= ref([
     {
-        label: 'API Keys'
+        label: 'API Tokens',
+        command: () => router.visit(route('tokens.index'))
     },
     {
         label: 'Settings'
