@@ -16,7 +16,8 @@ const items= ref([
         separator: true
     },
     {
-        label: 'Sign Out'
+        label: 'Sign Out',
+        command: () => router.post(route('logout'))
     }
 ])
 
