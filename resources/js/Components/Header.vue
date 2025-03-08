@@ -1,6 +1,7 @@
 <script setup>
 import ApplicationLogo from "@/Components/ApplicationLogo.vue";
 import {ref} from "vue";
+import AccountMenu from "@/Components/AccountMenu.vue";
 
 const items = ref([
     {
@@ -22,7 +23,7 @@ const items = ref([
             </template>
 
             <template #end>
-
+                <AccountMenu />
             </template>
         </Menubar>
     </div>

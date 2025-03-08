@@ -1,5 +1,6 @@
-import '../css/app.css';
-import './bootstrap';
+import '../css/app.css'
+import './bootstrap'
+import 'primeicons/primeicons.css'
 
 import { createInertiaApp } from '@inertiajs/vue3';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
@@ -12,8 +13,8 @@ import Password from "primevue/password"
 import Button from "primevue/button"
 import Card from "primevue/card"
 import Message from "primevue/message"
-import Checkbox from "primevue/checkbox";
-import {Menubar, Ripple} from "primevue";
+import Checkbox from "primevue/checkbox"
+import {Menu, Menubar, Ripple} from "primevue"
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
@@ -41,6 +42,7 @@ createInertiaApp({
             .component('Message', Message)
             .component('Checkbox', Checkbox)
             .component('Menubar', Menubar)
+            .component('Menu', Menu)
             .directive('ripple', Ripple)
             .mount(el);
     },
