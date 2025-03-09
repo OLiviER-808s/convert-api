@@ -16,9 +16,7 @@ class TokenController extends Controller
         return Inertia::render('Tokens', [
              'tokens' => $user->tokens->map(fn ($token) => [
                  'name' => $token->name,
-                 'last_used_at' => $token->last_used_at,
-                 'created_at' => $token->created_at,
-                 'expires_at' => $token->expires_at,
+                 'created_at' => $token->created_at->format('d/m/Y'),
              ])
         ]);
     }

@@ -45,9 +45,13 @@ const copyToken = () => {
         <Button label="Generate Token" @click="visible = true" />
 
         <Dialog v-model:visible="visible" modal :header="token ? 'Token Generated!' : 'Generate Token'" :style="{ width: '30rem' }">
-            <div v-if="token" class="flex gap-2 mb-4">
-                <InputText v-model="token" id="token_name" class="flex-grow" autocomplete="off" :invalid="!!error" />
-                <Button icon="pi pi-copy" aria-label="Copy" @click="copyToken()" />
+            <div v-if="token" class="mb-4">
+                <label for="token" class="font-semibold">Token</label>
+
+                <div class="flex gap-2">
+                    <InputText v-model="token" id="token" class="flex-grow" autocomplete="off" disabled />
+                    <Button icon="pi pi-copy" aria-label="Copy" @click="copyToken()" />
+                </div>
             </div>
             <div v-else class="flex items-center gap-4 mb-4">
                 <label for="token_name" class="font-semibold w-24">Token Name</label>

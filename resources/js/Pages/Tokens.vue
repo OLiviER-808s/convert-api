@@ -10,21 +10,33 @@ const props = defineProps({
 <template>
     <AppLayout>
         <div class="pt-10 flex items-center justify-center">
-            <Card>
-                <template #title>API tokens</template>
+            <div class="w-full max-w-3xl">
+                <Card>
+                    <template #title>API tokens</template>
 
-                <template #content>
-                    <div v-for="token in tokens">
+                    <template #content>
+                        <div>
+                            <div class="overflow-auto max-h-96">
+                                <DataTable :value="tokens">
+                                    <Column field="name" header="Name" />
 
-                    </div>
+                                    <Column field="created_at" header="Created at" />
 
-                    <div class="flex flex-col gap-2">
-                        <div class="flex items-end">
-                            <AddToken />
+                                    <Column headerStyle="width: 5rem; text-align: center" bodyStyle="text-align: center; overflow: visible">
+                                        <template #body>
+                                            <Button variant="outlined" severity="danger" type="button" icon="pi pi-trash" size="small" />
+                                        </template>
+                                    </Column>
+                                </DataTable>
+                            </div>
+
+                            <div class="w-full flex justify-end mt-6">
+                                <AddToken />
+                            </div>
                         </div>
-                    </div>
-                </template>
-            </Card>
+                    </template>
+                </Card>
+            </div>
         </div>
     </AppLayout>
 </template>
