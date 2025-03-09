@@ -1,17 +1,30 @@
 <script setup>
 import {ref} from "vue";
-import {useForm} from "@inertiajs/vue3";
 
 const visible = ref(false)
+const token = ref('')
 
-const form = useForm({
-    name: '',
-})
+const name = ref('')
+const error = ref('')
 
-const submit = () => {
-    form.post(route('tokens.store'), {
-        onSuccess: () => visible.value = false,
+const submit = async () => {
+    const response = await axios.post(route('tokens.store'), {
+        name: name.value
+    }).catch(err => {
+        error.value = err.response.data.errors.name[0]
     })
+
+    if (response) {
+        error.value = ''
+        token.value = response?.data.token
+    }
+}
+
+const close = () => {
+    visible.value = false
+    token.value = ''
+    name.value = ''
+    error.value = ''
 }
 </script>
 
@@ -19,21 +32,28 @@ const submit = () => {
     <div>
         <Button label="Generate Token" @click="visible = true" />
 
-        <Dialog v-model:visible="visible" modal header="Generate Token" :style="{ width: '30rem' }">
-            <div class="flex items-center gap-4 mb-4">
+        <Dialog v-model:visible="visible" modal :header="token ? 'Token Generated!' : 'Generate Token'" :style="{ width: '30rem' }">
+            <div v-if="token" class="flex gap-2 mb-4">
+                <InputText v-model="token" id="token_name" class="flex-grow" autocomplete="off" :invalid="!!error" />
+                <Button icon="pi pi-copy" aria-label="Copy" />
+            </div>
+            <div v-else class="flex items-center gap-4 mb-4">
                 <label for="token_name" class="font-semibold w-24">Token Name</label>
-                <InputText v-model="form.name" id="token_name" class="flex-auto" autocomplete="off" :invalid="!!form.errors?.name" />
+                <InputText v-model="name" id="token_name" class="flex-auto" autocomplete="off" :invalid="!!error" />
             </div>
 
-            <div class="text-sm mb-4">
-                <Message v-if="form.errors.name" severity="error">
-                    {{ form.errors.name }}
+            <div v-if="error" class="text-sm mb-4">
+                <Message severity="error">
+                    {{ error }}
                 </Message>
             </div>
 
-            <div class="flex justify-end gap-2">
-                <Button type="button" label="Cancel" severity="secondary" @click="visible = false"></Button>
-                <Button type="button" label="Save" @click="submit()"></Button>
+            <div v-if="token" class="flex justify-end gap-2">
+                <Button type="button" label="Close" severity="secondary" @click="close()" />
+            </div>
+            <div v-else class="flex justify-end gap-2">
+                <Button type="button" label="Cancel" severity="secondary" @click="close()" />
+                <Button type="button" label="Save" @click="submit()" />
             </div>
         </Dialog>
     </div>

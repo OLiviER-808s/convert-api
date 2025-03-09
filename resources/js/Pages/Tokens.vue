@@ -1,6 +1,10 @@
 <script setup>
 import AppLayout from "@/Layouts/AppLayout.vue";
 import AddToken from "@/Components/AddToken.vue";
+
+const props = defineProps({
+    tokens: Array,
+})
 </script>
 
 <template>
@@ -10,6 +14,10 @@ import AddToken from "@/Components/AddToken.vue";
                 <template #title>API tokens</template>
 
                 <template #content>
+                    <div v-for="token in tokens">
+
+                    </div>
+
                     <div class="flex flex-col gap-2">
                         <div class="flex items-end">
                             <AddToken />

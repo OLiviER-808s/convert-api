@@ -14,7 +14,12 @@ class TokenController extends Controller
         $user = Auth::user();
 
         return Inertia::render('Tokens', [
-             'tokens' => $user->tokens
+             'tokens' => $user->tokens->map(fn ($token) => [
+                 'name' => $token->name,
+                 'last_used_at' => $token->last_used_at,
+                 'created_at' => $token->created_at,
+                 'expires_at' => $token->expires_at,
+             ])
         ]);
     }
 
@@ -23,8 +28,6 @@ class TokenController extends Controller
         $user = Auth::user();
         $token = $user->createToken($request->name);
 
-        if ($request->wantsJson()) {
-            return ['token' => $token->plainTextToken];
-        }
+        return ['token' => $token->plainTextToken];
     }
 }
