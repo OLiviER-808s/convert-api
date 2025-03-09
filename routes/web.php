@@ -26,12 +26,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::get('/tokens', [TokenController::class, 'index'])->name('tokens.index');
-
-    Route::post('/tokens/create', function (Request $request) {
-        $token = $request->user()->createToken($request->token_name);
-
-        return ['token' => $token->plainTextToken];
-    });
+    Route::post('/tokens/create', [TokenController::class, 'store'])->name('tokens.store');
 });
 
 require __DIR__.'/auth.php';

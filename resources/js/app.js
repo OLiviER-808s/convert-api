@@ -14,7 +14,7 @@ import Button from "primevue/button"
 import Card from "primevue/card"
 import Message from "primevue/message"
 import Checkbox from "primevue/checkbox"
-import {Menu, Menubar, Ripple} from "primevue"
+import {Dialog, Menu, Menubar, Ripple} from "primevue"
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
@@ -43,6 +43,7 @@ createInertiaApp({
             .component('Checkbox', Checkbox)
             .component('Menubar', Menubar)
             .component('Menu', Menu)
+            .component('Dialog', Dialog)
             .directive('ripple', Ripple)
             .mount(el);
     },
