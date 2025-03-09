@@ -7,7 +7,7 @@ import {router} from "@inertiajs/vue3";
 const items = ref([
     {
         label: 'Dashboard',
-        command: () => router.visit(route('dashboard.show'))
+        command: () => router.visit(route('dashboard'))
     },
     {
         label: 'Documentation'
