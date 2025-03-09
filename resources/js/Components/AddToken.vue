@@ -2,6 +2,7 @@
 import {ref} from "vue";
 import {useClipboard} from "@vueuse/core";
 import {useToast} from "primevue";
+import {router} from "@inertiajs/vue3";
 
 const visible = ref(false)
 const token = ref('')
@@ -22,6 +23,10 @@ const submit = async () => {
     if (response) {
         error.value = ''
         token.value = response?.data.token
+
+        router.reload({
+            only: ['tokens']
+        })
     }
 }
 

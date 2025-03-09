@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreToken;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
@@ -15,6 +14,7 @@ class TokenController extends Controller
 
         return Inertia::render('Tokens', [
              'tokens' => $user->tokens->map(fn ($token) => [
+                 'id' => $token->id,
                  'name' => $token->name,
                  'created_at' => $token->created_at->format('d/m/Y'),
              ])
@@ -27,5 +27,10 @@ class TokenController extends Controller
         $token = $user->createToken($request->name);
 
         return ['token' => $token->plainTextToken];
+    }
+
+    public function destroy($id)
+    {
+        Auth::user()->tokens()->where('id', $id)->delete();
     }
 }

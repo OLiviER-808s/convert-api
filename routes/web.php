@@ -27,6 +27,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/tokens', [TokenController::class, 'index'])->name('tokens.index');
     Route::post('/tokens/create', [TokenController::class, 'store'])->name('tokens.store');
+    Route::delete('/tokens/{id}', [TokenController::class, 'destroy'])->name('tokens.destroy');
 });
 
 require __DIR__.'/auth.php';
