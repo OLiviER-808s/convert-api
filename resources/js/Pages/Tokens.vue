@@ -25,7 +25,7 @@ const deleteToken = (id) => {
                                 <DataTable :value="tokens">
                                     <Column field="name" header="Name" />
 
-                                    <Column field="created_at" header="Created at" />
+                                    <Column field="created_at" header="Created" />
 
                                     <Column headerStyle="width: 5rem; text-align: center" bodyStyle="text-align: center; overflow: visible">
                                         <template #body="{ data }">

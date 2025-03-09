@@ -25,7 +25,7 @@ const submit = async () => {
         token.value = response?.data.token
 
         router.reload({
-            only: ['tokens']
+            only: ['tokens', 'hasTokens']
         })
     }
 }
