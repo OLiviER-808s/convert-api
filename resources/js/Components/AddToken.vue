@@ -1,11 +1,16 @@
 <script setup>
 import {ref} from "vue";
+import {useClipboard} from "@vueuse/core";
+import {useToast} from "primevue";
 
 const visible = ref(false)
 const token = ref('')
 
 const name = ref('')
 const error = ref('')
+
+const toast = useToast()
+const clipboard = useClipboard({ token })
 
 const submit = async () => {
     const response = await axios.post(route('tokens.store'), {
@@ -26,16 +31,23 @@ const close = () => {
     name.value = ''
     error.value = ''
 }
+
+const copyToken = () => {
+    clipboard.copy(token.value)
+    toast.add({ severity: 'success', summary: 'Token copied to clipboard', life: 3000 });
+}
 </script>
 
 <template>
     <div>
+        <Toast />
+
         <Button label="Generate Token" @click="visible = true" />
 
         <Dialog v-model:visible="visible" modal :header="token ? 'Token Generated!' : 'Generate Token'" :style="{ width: '30rem' }">
             <div v-if="token" class="flex gap-2 mb-4">
                 <InputText v-model="token" id="token_name" class="flex-grow" autocomplete="off" :invalid="!!error" />
-                <Button icon="pi pi-copy" aria-label="Copy" />
+                <Button icon="pi pi-copy" aria-label="Copy" @click="copyToken()" />
             </div>
             <div v-else class="flex items-center gap-4 mb-4">
                 <label for="token_name" class="font-semibold w-24">Token Name</label>
